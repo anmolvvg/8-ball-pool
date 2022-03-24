@@ -1,2 +1,2 @@
-# 8-ball-pool
-8 balls pool using python
+The project file contains python scripts (8BallPool.py). Talking about the gameplay, the player has to shoot the properly arranged balls from any suitable direction. The player must shoot the ball and drop it inside any of the 6 scoring holes. The player has to shoot all the balls and drop them inside the holes to win the game. The PC controls of this game are also simple. You can use your mouse to decrease the speed of the shot. The gameplay design is so simple that the user won’t find it difficult to use and understand.
+8 Ball Pool game project is coded in Python. This game is a simple cue or pool game. While playing the game, all you have to do is just use your mouse for directional movement and use the right-click mouse button to fire the shot. There is a simple and clean GUI for easy gameplay. Here, the player has to use the mouse to change the direction of the shot. The game is an interesting game. 
