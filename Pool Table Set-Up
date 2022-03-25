@@ -1,0 +1,86 @@
+def poolTable():
+    loop = True
+
+    reset()
+
+    noPockets = 6
+    pockets = []
+
+    p1 = Pockets(0, 0, black)
+    p2 = Pockets(width/2 - p1.r*2, 0, black)
+    p3 = Pockets(width - p1.r - margin - 5, 0, black)
+    p4 = Pockets(0, height - margin - 5 - p1.r, black)
+    p5 = Pockets(width/2 - p1.r*2, height - margin - 5 - p1.r, black)
+    p6 = Pockets(width - p1.r - margin - 5, height - margin - 5 - p1.r, black)
+
+    pockets.append(p1)
+    pockets.append(p2)
+    pockets.append(p3)
+    pockets.append(p4)
+    pockets.append(p5)
+    pockets.append(p6)
+
+    cueBall = Ball(width/2, height/2, 0, white, 0, "cue")
+    cueStick = CueStick(0, 0, 100, stickColor)
+
+
+    start = 0
+    end = 0
+
+    while loop:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                close()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    close()
+
+                if event.key == pygame.K_r:
+                    poolTable()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                start = [cueBall.x, cueBall.y]
+                x, y = pygame.mouse.get_pos()
+                end = [x ,y]
+                dist = ((start[0] - end[0])**2 + (start[1] - end[1])**2)**0.5
+                force = dist/10.0
+                if force > 10:
+                    force = 10
+
+                cueStick.applyForce(cueBall, force)
+
+
+        display.fill(background)
+
+        cueBall.draw(cueBall.x, cueBall.y)
+        cueBall.move()
+
+        if not (cueBall.speed > 0):
+
+            cueStick.draw(cueBall.x, cueBall.y)
+
+        for i in range(len(balls)):
+            balls[i].draw(balls[i].x, balls[i].y)
+
+        for i in range(len(balls)):
+           balls[i].move()
+
+        checkCollision()
+        checkCueCollision(cueBall)
+        border()
+
+        for i in range(noPockets):
+            pockets[i].draw()
+
+        for i in range(noPockets):
+            pockets[i].checkPut()
+
+        if len(balls) == 1 and balls[0].ballNum == 8:
+            gameOver()
+
+        score()
+
+        pygame.display.update()
+        clock.tick(60)
+
+poolTable()
